@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tichu_score/views/pages/game_page_five.dart';
+import 'package:tichu_score/views/pages/game_page_thousand.dart';
 
 class ChooseTeamName extends StatefulWidget {
-  const ChooseTeamName({super.key});
+  final int flag;
+  const ChooseTeamName({super.key, required this.flag});
 
   @override
   State<ChooseTeamName> createState() => _ChooseTeamNameState();
@@ -38,11 +41,12 @@ class _ChooseTeamNameState extends State<ChooseTeamName> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               //team 1 TEXTFIELD
+              //team 1 TEXTFIELD
               Center(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
+                    maxLength: 10,
                     controller: _name1Controller,
                     keyboardType: TextInputType.text,
                     onChanged: (text) {
@@ -68,6 +72,7 @@ class _ChooseTeamNameState extends State<ChooseTeamName> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: TextField(
+                    maxLength: 10,
                     keyboardType: TextInputType.text,
                     onChanged: (text) {
                       Team2 = text;
@@ -96,12 +101,25 @@ class _ChooseTeamNameState extends State<ChooseTeamName> {
                 padding: const EdgeInsets.only(bottom: 40),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChooseTeamName(),
-                      ),
-                    );
+                    if (widget.flag == 5) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  GamePageFive(team1: Team1, team2: Team2),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  GamePageThousand(team1: Team1, team2: Team2),
+                        ),
+                      );
+                    }
                   },
                   child: Text("Next", style: GoogleFonts.shadowsIntoLight()),
                   style: ElevatedButton.styleFrom(

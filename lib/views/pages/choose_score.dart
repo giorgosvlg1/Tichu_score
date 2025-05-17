@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tichu_score/views/pages/welcome_page.dart';
+import 'package:tichu_score/views/pages/choose_name.dart';
 
 class ChooseScore extends StatefulWidget {
-  const ChooseScore({super.key});
+  final int
+  flag; //this shows what button the user presses if flag=5 then score=500 if flag=1000 then score = 10
+  const ChooseScore({super.key, required this.flag});
 
   @override
   State<ChooseScore> createState() => _ChooseScoreState();
 }
 
 class _ChooseScoreState extends State<ChooseScore> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +47,7 @@ class _ChooseScoreState extends State<ChooseScore> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WelcomePage(),
+                          builder: (context) => const ChooseTeamName(flag: 5),
                         ),
                       );
                     },
@@ -79,7 +80,7 @@ class _ChooseScoreState extends State<ChooseScore> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const WelcomePage(),
+                          builder: (context) => const ChooseTeamName(flag: 10),
                         ),
                       );
                     },

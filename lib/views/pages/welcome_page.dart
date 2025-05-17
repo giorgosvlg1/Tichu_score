@@ -43,10 +43,10 @@ class WelcomePage extends StatelessWidget {
                   builder: (context) {
                     return ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ChooseScore(),
+                            builder: (context) => const ChooseScore(flag: 5),
                           ),
                         );
                       },

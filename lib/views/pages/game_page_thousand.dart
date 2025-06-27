@@ -136,21 +136,29 @@ class _GamePageThousandState extends State<GamePageThousand> {
                             lastTeam1 = team1Score;
                             lastTeam2 = team2Score;
 
+                            if (oneTwoTeam1) {
+                              team1Score += 200 - 100;
+                              team1Input = 100;
+                            }
+                            if (oneTwoTeam2) {
+                              team2Score += 200 - 100;
+                              team2Input = 100;
+                            }
+
                             team1Score +=
-                                team1Input +
+                                100 -
+                                team2Input +
                                 (tichu1 ? 100 : 0) +
                                 (grandTichu1 ? 200 : 0) -
                                 (failTichu1 ? 100 : 0) -
                                 (failGrand1 ? 200 : 0);
                             team2Score +=
-                                team2Input +
+                                100 -
+                                team1Input +
                                 (tichu2 ? 100 : 0) +
                                 (grandTichu2 ? 200 : 0) -
                                 (failTichu2 ? 100 : 0) -
                                 (failGrand2 ? 200 : 0);
-
-                            if (oneTwoTeam1) team1Score += 200;
-                            if (oneTwoTeam2) team2Score += 200;
                           });
 
                           Navigator.pop(context);
@@ -273,6 +281,7 @@ class _GamePageThousandState extends State<GamePageThousand> {
     );
   }
 
+  //Main UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(

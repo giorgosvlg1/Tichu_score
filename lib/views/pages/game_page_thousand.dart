@@ -356,6 +356,21 @@ class _GamePageThousandState extends State<GamePageThousand> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(right: 70, bottom: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Note: you can only type the points of 1 team \n and the app will automatically calculate the other",
+                        style: TextStyle(color: Colors.white.withOpacity(0.4)),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -140,21 +140,29 @@ class _GamePageFiveState extends State<GamePageFive> {
                             lastTeam1 = team1Score;
                             lastTeam2 = team2Score;
 
+                            if (oneTwoTeam1) {
+                              team1Score += 200 - 100;
+                              team1Input = 100;
+                            }
+                            if (oneTwoTeam2) {
+                              team2Score += 200 - 100;
+                              team2Input = 100;
+                            }
+
                             team1Score +=
-                                team1Input +
+                                100 -
+                                team2Input +
                                 (tichu1 ? 100 : 0) +
                                 (grandTichu1 ? 200 : 0) -
                                 (failTichu1 ? 100 : 0) -
                                 (failGrand1 ? 200 : 0);
                             team2Score +=
-                                team2Input +
+                                100 -
+                                team1Input +
                                 (tichu2 ? 100 : 0) +
                                 (grandTichu2 ? 200 : 0) -
                                 (failTichu2 ? 100 : 0) -
                                 (failGrand2 ? 200 : 0);
-
-                            if (oneTwoTeam1) team1Score += 200;
-                            if (oneTwoTeam2) team2Score += 200;
                           });
 
                           Navigator.pop(context);
@@ -347,6 +355,21 @@ class _GamePageFiveState extends State<GamePageFive> {
                       onPressed: _showScoreInputDialog,
                       icon: const Icon(Icons.add, color: Colors.blueGrey),
                       iconSize: 50,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 70, bottom: 40),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Note: you can only type the points of 1 team \n and the app will automatically calculate the other",
+                        style: TextStyle(color: Colors.white.withOpacity(0.4)),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ],
                 ),

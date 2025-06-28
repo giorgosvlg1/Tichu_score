@@ -142,27 +142,50 @@ class _GamePageFiveState extends State<GamePageFive> {
 
                             if (oneTwoTeam1) {
                               team1Score += 200 - 100;
-                              team1Input = 100;
+                              team1Input += 100;
                             }
                             if (oneTwoTeam2) {
                               team2Score += 200 - 100;
-                              team2Input = 100;
+                              team2Input += 100;
                             }
 
-                            team1Score +=
-                                100 -
-                                team2Input +
-                                (tichu1 ? 100 : 0) +
-                                (grandTichu1 ? 200 : 0) -
-                                (failTichu1 ? 100 : 0) -
-                                (failGrand1 ? 200 : 0);
-                            team2Score +=
-                                100 -
-                                team1Input +
-                                (tichu2 ? 100 : 0) +
-                                (grandTichu2 ? 200 : 0) -
-                                (failTichu2 ? 100 : 0) -
-                                (failGrand2 ? 200 : 0);
+                            if (team2Input == 0) {
+                              team2Input = 100 - team1Input;
+                              team1Score +=
+                                  100 -
+                                  team2Input +
+                                  (tichu1 ? 100 : 0) +
+                                  (grandTichu1 ? 200 : 0) -
+                                  (failTichu1 ? 100 : 0) -
+                                  (failGrand1 ? 200 : 0);
+                            } else {
+                              team1Score +=
+                                  100 -
+                                  team2Input +
+                                  (tichu1 ? 100 : 0) +
+                                  (grandTichu1 ? 200 : 0) -
+                                  (failTichu1 ? 100 : 0) -
+                                  (failGrand1 ? 200 : 0);
+                            }
+
+                            if (team1Input == 0) {
+                              team1Input = 100 - team2Input;
+                              team2Score +=
+                                  100 -
+                                  team1Input +
+                                  (tichu2 ? 100 : 0) +
+                                  (grandTichu2 ? 200 : 0) -
+                                  (failTichu2 ? 100 : 0) -
+                                  (failGrand2 ? 200 : 0);
+                            } else {
+                              team2Score +=
+                                  100 -
+                                  team1Input +
+                                  (tichu2 ? 100 : 0) +
+                                  (grandTichu2 ? 200 : 0) -
+                                  (failTichu2 ? 100 : 0) -
+                                  (failGrand2 ? 200 : 0);
+                            }
                           });
 
                           Navigator.pop(context);

@@ -120,7 +120,6 @@ class _GamePageFiveState extends State<GamePageFive> {
                       const SizedBox(height: 12),
                       ElevatedButton(
                         onPressed: () {
-                          // Allow only one input at a time
                           bool team1Filled = team1Input != 0;
                           bool team2Filled = team2Input != 0;
 
@@ -128,9 +127,7 @@ class _GamePageFiveState extends State<GamePageFive> {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text(
-                                  "Please enter points for only one team!",
-                                ),
+                                content: Text("Type for only 1 team"),
                               ),
                             );
                             return;
@@ -159,28 +156,25 @@ class _GamePageFiveState extends State<GamePageFive> {
                                 oneTwoTeam1 || oneTwoTeam2 ? 200 : 100;
                             int t1 = 0, t2 = 0;
 
-                            if (team1Filled) {
-                              t1 = team1Input;
-                              t2 = roundTotal - t1;
-                            } else if (team2Filled) {
-                              t2 = team2Input;
-                              t1 = roundTotal - t2;
+                            if (oneTwoTeam1) {
+                              t1 = 200;
+                              t2 = 0;
+                            } else if (oneTwoTeam2) {
+                              t2 = 200;
+                              t1 = 0;
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Please enter points for one team!",
-                                  ),
-                                ),
-                              );
-                              return;
+                              if (team1Filled) {
+                                t1 = team1Input;
+                                t2 = roundTotal - t1;
+                              } else if (team2Filled) {
+                                t2 = team2Input;
+                                t1 = roundTotal - t2;
+                              } else {
+                                return;
+                              }
                             }
 
-                            // 1-2 Bonus
-                            if (oneTwoTeam1) t1 += 100;
-                            if (oneTwoTeam2) t2 += 100;
-
-                            // Tichu/Grand/Fail
+                            // Apply Tichu/Grand/Fail bonuses
                             t1 +=
                                 (tichu1 ? 100 : 0) +
                                 (grandTichu1 ? 200 : 0) -
@@ -380,7 +374,7 @@ class _GamePageFiveState extends State<GamePageFive> {
                       ),
                     ),
                     styledScore(team2Score),
-                    const SizedBox(height: 550),
+                    Spacer(),
                     IconButton(
                       onPressed: _showScoreInputDialog,
                       icon: const Icon(Icons.add, color: Colors.blueGrey),

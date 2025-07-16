@@ -130,8 +130,10 @@ class _GamePageThousandState extends State<GamePageThousand> {
                             return;
                           }
 
-                          if ((team1Filled && (team1Input < -25 || team1Input > 125)) ||
-                              (team2Filled && (team2Input < -25 || team2Input > 125))) {
+                          if ((team1Filled &&
+                                  (team1Input < -25 || team1Input > 125)) ||
+                              (team2Filled &&
+                                  (team2Input < -25 || team2Input > 125))) {
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -147,31 +149,39 @@ class _GamePageThousandState extends State<GamePageThousand> {
                             lastTeam1 = team1Score;
                             lastTeam2 = team2Score;
 
-                            int roundTotal = oneTwoTeam1 || oneTwoTeam2 ? 200 : 100;
+                            int roundTotal =
+                                oneTwoTeam1 || oneTwoTeam2 ? 200 : 100;
                             int t1 = 0, t2 = 0;
 
-                            if (team1Filled) {
-                              t1 = team1Input;
-                              t2 = roundTotal - t1;
-                            } else if (team2Filled) {
-                              t2 = team2Input;
-                              t1 = roundTotal - t2;
+                            if (oneTwoTeam1) {
+                              t1 = 200;
+                              t2 = 0;
+                            } else if (oneTwoTeam2) {
+                              t2 = 200;
+                              t1 = 0;
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    "Please enter points for one team!",
-                                  ),
-                                ),
-                              );
-                              return;
+                              if (team1Filled) {
+                                t1 = team1Input;
+                                t2 = roundTotal - t1;
+                              } else if (team2Filled) {
+                                t2 = team2Input;
+                                t1 = roundTotal - t2;
+                              } else {
+                                return;
+                              }
                             }
 
-                            if (oneTwoTeam1) t1 += 100;
-                            if (oneTwoTeam2) t2 += 100;
-
-                            t1 += (tichu1 ? 100 : 0) + (grandTichu1 ? 200 : 0) - (failTichu1 ? 100 : 0) - (failGrand1 ? 200 : 0);
-                            t2 += (tichu2 ? 100 : 0) + (grandTichu2 ? 200 : 0) - (failTichu2 ? 100 : 0) - (failGrand2 ? 200 : 0);
+                            // Apply Tichu/Grand/Fail bonuses
+                            t1 +=
+                                (tichu1 ? 100 : 0) +
+                                (grandTichu1 ? 200 : 0) -
+                                (failTichu1 ? 100 : 0) -
+                                (failGrand1 ? 200 : 0);
+                            t2 +=
+                                (tichu2 ? 100 : 0) +
+                                (grandTichu2 ? 200 : 0) -
+                                (failTichu2 ? 100 : 0) -
+                                (failGrand2 ? 200 : 0);
 
                             team1Score += t1;
                             team2Score += t2;
@@ -362,7 +372,7 @@ class _GamePageThousandState extends State<GamePageThousand> {
                       ),
                     ),
                     styledScore(team2Score),
-                    const SizedBox(height: 550),
+                    Spacer(),
                     IconButton(
                       onPressed: _showScoreInputDialog,
                       icon: const Icon(Icons.add, color: Colors.blueGrey),
